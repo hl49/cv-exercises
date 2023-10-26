@@ -24,7 +24,7 @@ fi
 
 - On the tfpool install python 3.8 pytorch 1.13 cuda 11.6 (newer versions of cuda may not work)
 - On your own PC, update the drivers and keep installing older versions of pytorch and cuda
-until you find one that works.
+  until you find one that works.
 
 ## Data access options
 
@@ -102,37 +102,42 @@ steps to install vs-code (on linux without sudo)
 
 ### VSCode Shortcuts:
 
-	- https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
-	- https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf
-	- https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf
-	- open terminal: ctrl j
-	- open settings: ctrl ,
-	- open command palette: ctrl shift p
-	- set python interpreter of your conda environment: 
-		ctrl shift p 
-		python select interpreter
-		choose path to your conda environment
-		complaints about not knowing numpy will be gone
+    - https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
+    - https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf
+    - https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf
+    - open terminal: ctrl j
+    - open settings: ctrl ,
+    - open command palette: ctrl shift p
+    - set python interpreter of your conda environment: 
+        ctrl shift p 
+        python select interpreter
+        choose path to your conda environment
+        complaints about not knowing numpy will be gone
 
 ### Remote SSH in vscode directly to a pool machine
 
 Instead of connecting vscode to the login node via ssh and then connect in the terminal to one of
 the pool machines, one can directly connect via ssh to a pool machine as follows:
+
 - Crtl+shift+p: then Remote-SSH: Open SSH Configuration File and choose your loca config file.
 - Usually you will see an entry for every server like:
-```
-Host login.informatik.uni-freiburg.de
+  
+  ```
+  Host login.informatik.uni-freiburg.de
   HostName login.informatik.uni-freiburg.de
   User username
-```
-Since the pool machines are only accessible after connecting to login, you can add one more entry for a pool machine as follows:
-```
-Host tfpool21
+  ```
+  
+  Since the pool machines are only accessible after connecting to login, you can add one more entry for a pool machine as follows:
+  
+  ```
+  Host tfpool21
   HostName tfpool21
   ProxyJump login.informatik.uni-freiburg.de
   User username
-```
-Then, when you select tfpool21, it will first connect to login and then to tfpool21, hence will ask for the password twice.
+  ```
+  
+  Then, when you select tfpool21, it will first connect to login and then to tfpool21, hence will ask for the password twice.
 
 This is required when running jupyter notebook that requires libraries that are not installed on the login node (exercise 07).
 
@@ -151,4 +156,3 @@ if it does not pop up: hover over link in cmd and click on 'follow link using fo
 ### Batch Norm
 
 - nice explanation of intuition and parameters: [batchnorm-towardsdatascience](https://towardsdatascience.com/batch-norm-explained-visually-how-it-works-and-why-neural-networks-need-it-b18919692739)
-
