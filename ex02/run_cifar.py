@@ -54,7 +54,9 @@ def main():
         # load model weights from the file given by args.load_model and apply them to the model
         # weights = th.load ...
         # model.load_state_dict ...
-        raise NotImplementedError
+        # raise NotImplementedError
+        weights = th.load(args.load_model)
+        model.load_state_dict(weights)
         # END TODO ###################
 
     # move the model to our device
@@ -71,7 +73,8 @@ def main():
     # Create the loss function (nn.CrossEntropyLoss)
     # START TODO #################
     # loss_fn = ...
-    raise NotImplementedError
+    # raise NotImplementedError
+    loss_fn = nn.CrossEntropyLoss()
     # END TODO ###################
 
     # create optimizer given the string in args.optimizer
@@ -79,13 +82,15 @@ def main():
         # START TODO #################
         # create stochastic gradient descent optimizer (optim.SGD) given model.parameters() and args.learning_rate
         # optimizer = ...
-        raise NotImplementedError
+        # raise NotImplementedError
+        optimizer = optim.SGD(params=model.parameters(), lr=args.learning_rate)
         # END TODO ###################
     elif args.optimizer == "adamw":
         # START TODO #################
         # create AdamW optimizer (optim.AdamW) given model.parameters() and args.learning_rate
         # optimizer = ...
-        raise NotImplementedError
+        # raise NotImplementedError
+        optimizer = optim.AdamW(params=model.parameters(), lr=args.learning_rate)
         # END TODO ###################
     else:
         raise ValueError(f"Undefined optimizer: {args.optimizer}")
@@ -115,7 +120,12 @@ def main():
                 # 3) compute the loss between the output and the label by using loss_fn(output, label)
                 # 4) use loss.backward() to accumulate the gradients
                 # 5) use optimizer.step() to update the weights
-                raise NotImplementedError
+                # raise NotImplementedError
+                optimizer.zero_grad()
+                logits = model(data)
+                loss = loss_fn(logits, label)
+                loss.backward()
+                optimizer.step()
                 # END TODO ###################
 
                 # log the loss
@@ -144,7 +154,11 @@ def main():
                 #   - use predictions == labels to get the correctness for each prediction
                 #   - use th.sum to get the total number of correct predictions
                 #   - divide by the batchsize to get the accuracy
-                raise NotImplementedError
+                # raise NotImplementedError
+                logits = model(data)
+                loss = loss_fn(logits, label)
+                predictions = th.argmax(logits, dim=1)
+                acc = th.sum(predictions == label) / len(predictions)
                 # END TODO ###################
 
                 total_loss += loss.item()
@@ -167,7 +181,8 @@ def main():
     print(f"Saving model to {model_file}")
     # START TODO #################
     # save the model to disk by using th.save with parameters model.state_dict() and model_file
-    raise NotImplementedError
+    # raise NotImplementedError
+    th.save(model.state_dict(), model_file)
     # END TODO ###################
 
 
