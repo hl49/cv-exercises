@@ -8,7 +8,7 @@ if you dont care about pycharm references:
 source "$(dirname "$0")"/constants.sh
 '
 # current repository where the shs subfolder is in
-readonly REPO="~/poolscripts"
+readonly REPO=$(pwd)
 
 # scripts
 readonly SSH_SAFE="./sshu.sh"

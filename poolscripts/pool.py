@@ -44,7 +44,11 @@ def main():
         else:
             pc_name_check = lines[1]
             separated_content = input_text_per_pc.split("-----SEPARATOR-----")[1:]
-            user_content = separated_content[0]
+            try:
+                user_content = separated_content[0]
+            except IndexError:
+                print("{:8} {}".format(pc, "failed"))
+
             users = list(set(line.split(" ")[0] for line in separated_content[0].splitlines(keepends=False)
                              if line.strip() != ""))
             users = [user for user in users if user != args.user]
