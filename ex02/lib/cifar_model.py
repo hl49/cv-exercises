@@ -20,8 +20,6 @@ class ConvModel(nn.Module):
 
         # START TODO #################
         # Time to define our network. Hints:
-        #   Use nn.Conv2d for convolutional layers and set padding="same"
-        #   to automatically pad the input to the correct size.
         #   Make each module (i.e. component of the network) an attribute of the class, i.e.
         #   self.conv1 = nn.Conv2d(...)
         #   This is necessary for PyTorch to work correctly.
