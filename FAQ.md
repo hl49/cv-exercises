@@ -35,6 +35,7 @@ fi
 
 ## Problems with TF pool
 
+- Overview of available TF pool machines: https://tfpool.retool.com/embedded/public/79b8f1d7-c1bd-473c-a27f-4b7c6ab4693f
 - Check [TF pool FAQ](http://poolmgr.informatik.uni-freiburg.de/?id=103)
 
 ### I have to input my password all the time
