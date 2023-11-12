@@ -25,13 +25,23 @@ def get_transforms(args):
         # horizontal_flip, random_resize_crop, ToTensor, Normalize
         # you can play around with the parameters
         # train_transforms=
-        raise NotImplementedError
+        # raise NotImplementedError
+        train_transforms = torchvision.transforms.Compose(
+                [horizontal_flip(p=0.5),
+                 random_resize_crop(size=32, scale=(0.8, 1.0)),
+                 torchvision.transforms.ToTensor(),
+                 torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])        
         # END TODO #################
     elif args.transforms == 'torchvision':
         # START TODO #################
         # achieve the same as above with torchvision transforms
         # compare your own implementation against theirs
-        raise NotImplementedError
+        # raise NotImplementedError
+        train_transforms = torchvision.transforms.Compose(
+                [torchvision.transforms.RandomHorizontalFlip(p=0.5),
+                 torchvision.transforms.RandomResizedCrop(size=32, scale=(0.8, 1.0), ratio=(0.75, 1.333)),
+                 torchvision.transforms.ToTensor(),
+                 torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
         # END TODO #################
     else:
         raise ValueError(f"Unknown transform {args.transforms}")
@@ -146,13 +156,15 @@ def main():
     # START TODO #################
     # initialize the SummaryWriter with a log directory in args.out_dir/logs
     # tb_writer = 
-    raise NotImplementedError
+    # raise NotImplementedError
+    tb_writer = SummaryWriter(os.path.join('logs', args.out_dir))
     # END TODO #################
 
     # START TODO #################
     # get the transforms and pass them to the dataset
     # train_transforms, val_transforms = ...
-    raise NotImplementedError
+    # raise NotImplementedError
+    train_transforms, val_transforms = get_transforms(args)
     # END TODO #################
 
     # create dataloaders
@@ -221,7 +233,9 @@ def main():
                                                     args, device)
             # START TODO ###################
             # add_scalar train_loss and train_acc to tb_writer
-            raise NotImplementedError
+            # raise NotImplementedError
+            tb_writer.add_scalar('train_loss', train_loss, epoch)
+            tb_writer.add_scalar('train_acc', train_acc, epoch)            
             # END TODO ###################
 
         # iterate over the val set to compute the accuracy
@@ -230,7 +244,9 @@ def main():
               f"Loss {val_loss:.6f} accuracy {val_acc:.2%}")
         # START TODO #################
         # add_scalar val_loss and val_acc to tb_writer
-        raise NotImplementedError
+        # raise NotImplementedError
+        tb_writer.add_scalar('val_loss', val_loss, epoch)
+        tb_writer.add_scalar('val_acc', val_acc, epoch)        
         # END TODO ###################
         print(f"---------- End of epoch {epoch + 1}")
 
@@ -247,7 +263,10 @@ def main():
     # START TODO #################
     # add_scalar test_loss and test_acc to tb_writer
     # ideally, you'd remember the model with the best validation performance and test on that
-    raise NotImplementedError
+    # raise NotImplementedError
+    tb_writer.add_scalar('test_loss', test_loss, epoch)
+    tb_writer.add_scalar('test_acc', test_acc, epoch)
+    tb_writer.close()
     # END TODO ###################
 
 
@@ -258,13 +277,13 @@ if __name__ == '__main__':
     # train the network for 256 epochs
     # use the flag --transforms basic, and specify out_dir as 'no_augment'
     # --- do not put code here ---
-    raise NotImplementedError
+    # raise NotImplementedError
     # END TODO ###################
 
     # START TODO ###################
     # train the network a second time with the flag --transforms own and the out_dir 'augment'
     # --- do not put code here ---
-    raise NotImplementedError
+    # raise NotImplementedError
     # END TODO ###################
 
     # START TODO ###################
@@ -283,5 +302,5 @@ if __name__ == '__main__':
     # (3) compare the training and validation curves of 'no_augment' and 'augment'
     #   see also the test performance
     # --- do not put code here ---
-    raise NotImplementedError
+    # raise NotImplementedError
     # END TODO ###################
